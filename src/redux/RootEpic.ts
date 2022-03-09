@@ -1,8 +1,8 @@
 import { combineEpics, Epic } from "redux-observable";
-import { signIn, signInGoogle, signOut, signUp } from "./userprofile/UserEpic";
+import { activeAccount, changePassword, signIn, signUp, statistic } from "./userprofile/UserEpic";
 
 const RootEpic: Epic = combineEpics( 
-   signUp, signIn, signInGoogle, signOut
+   signUp, signIn, activeAccount, changePassword, statistic
 )
 
 export default RootEpic

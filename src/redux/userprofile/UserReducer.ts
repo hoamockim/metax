@@ -1,11 +1,10 @@
 import { AnyAction, Reducer } from "redux"
 import { AccountState } from "../RootState"
-import { LOADING, SIGNIN, SIGNINED, SIGNINFACE, SIGNINGOOGLE, SIGNUP, SIGNUPDONE, WAITING } from "./UserAction"
+import { ACTIVEACOUNT, LOADING, SIGNFAIL, SIGNIN, SIGNINED, SIGNUP, SIGNUPDONE, WAITING } from "./UserAction"
 
 const initialState: AccountState = {
     status: '',
-    accountCode: '',
-    email: 'kim@gmail.com',
+    email: '',
     accessToken: ''
 }
 
@@ -17,12 +16,12 @@ const UserReducer: Reducer<AccountState, AnyAction> = (state = initialState, act
             return {... state, status: action.payload.status, email: action.payload.email}
         case SIGNIN:
             return {...state, status: WAITING}
-        case SIGNINFACE:
-            return {...state, status: SIGNINFACE }
-        case SIGNINGOOGLE:
-            return {...state, status: SIGNINGOOGLE}
         case SIGNINED:
-            return {...state, status: SIGNINED, accessToken: action.payload.data.accessToken}
+            return {...state, status: SIGNINED, accessToken: action.payload.accessToken}
+        case SIGNFAIL:
+            return {...state, status: SIGNFAIL}
+        case ACTIVEACOUNT:
+            return {...state, status: WAITING}
         default:
             return {...state}
     }

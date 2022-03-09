@@ -1,18 +1,36 @@
 
-import { FC, ReactElement, useContext, useState } from "react";
+import { FC, ReactElement } from "react";
+import UserStatistic from "../UserProfile/UserStatistic";
+import Statistic from "./Statistic";
+
+const styles = {
+  table: {
+    tdleft: {
+      with: '350px',
+      paddingRight: '50px'  
+    },
+    tdRight: {
+        width: '300px',
+        alignItems: 'right'
+    }
+  }
+}
 
 const Header = (): ReactElement=> {
     return (
-        <HeaderDetail></HeaderDetail>
-    )
-}
-
-const HeaderDetail = (): ReactElement => {
-   
-    return (
-        <>
-           <h2> Metax exam</h2>
-        </>
+      <div className="header-metax">
+         <table>
+           <tr>
+            <td><b>Total</b></td>
+            <td><b>User</b></td>
+           </tr>
+           <tr>
+             <td style={styles.table.tdleft}><Statistic/></td>
+             <td style={styles.table.tdRight}><UserStatistic/></td>
+           </tr>
+         </table>
+         <hr/>
+      </div>
     )
 }
 

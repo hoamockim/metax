@@ -1,10 +1,18 @@
 export type AccountState = {
     status: string
-    accountCode: string
     email: string
     accessToken: string
 }
 
-export type RootState ={
+export type StatisticState = {
+    signedup: number,
+    activeInDay: number,
+    active7DaysRolling: number
+    signinCounter: number,
+    lastTimeSignin: number
+}
+
+export type RootState = {
     account: AccountState,
- }
+    statistic: StatisticState,
+}

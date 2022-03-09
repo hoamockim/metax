@@ -11,6 +11,13 @@ type SignUpPropType = {
     signUp: (email: string, password: string) => void
 }
 
+const background = require('../../asserts/images/bg02.jpg')
+const styles = {
+    container: {
+        backgroundImage:` url(${background})`,
+    }
+}
+
 const accountSelector = (state:RootState): AccountState => state.account
 const getAccountStatus: Selector<RootState, string> = createSelector(accountSelector, (accountState: AccountState): string => accountState.status)
 const mapStateToProps =(state: RootState) => ({
@@ -50,13 +57,36 @@ const SignUp: FC<SignUpPropType> = (props): ReactElement => {
         e.preventDefault()
     }
     return(
-        <div className="register">
-            <h2>{props.state}</h2>
-            <form method="post" onSubmit={handleSubmit}>
-                <input type="text" name="email" placeholder= {signUpInfo.email} onChange= {changeEmail} required />
-                <input type="password" name="pass" placeholder= {signUpInfo.password} onChange= {changePassword} required />
-                <input type="submit"  className="btn btn-primary btn-block btn-large" value="Register"/>
-            </form>
+        <div className="limiter">
+            <div className="container-login100" style={styles.container}>
+            <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                <form method="post" onSubmit={handleSubmit} className="login100-form validate-form flex-sb flex-w">
+                    <div className="p-t-31 p-b-9">
+                        <span className="txt1">
+                            Email
+                        </span>
+                    </div>
+
+                    <div className="wrap-input100 validate-input">
+                        <input type="text" className="input100" name="email" placeholder= {signUpInfo.email} onChange= {changeEmail} required />
+                        <span className="focus-input100"></span>
+                    </div>
+
+                    <div className="p-t-13 p-b-9">
+                        <span className="txt1">
+                            Password
+                        </span>
+                    </div>
+                    <div className="wrap-input100 validate-input">
+                        <input type="password" className="input100" name="pass" placeholder= {signUpInfo.password} onChange= {changePassword} required />
+                        <span className="focus-input100"></span>
+                    </div>
+                    <div className="container-login100-form-btn m-t-17">
+                        <input type="submit" className="login100-form-btn" value="Register"/>
+                    </div>
+                </form>
+            </div>
+            </div>
         </div>
     )
 }

@@ -1,29 +1,19 @@
 import { FC, ReactElement } from "react"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { SignOutAction } from "../../redux/userprofile/UserAction"
+import { useCookies } from 'react-cookie'
 
-type SignOutPropType = {
-    type: number // 0: email, 1: facebook, 2: google
-    email: string
-    password: string
-    register: () => void
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        register: ()=> dispatch(SignOutAction())
+const SignOut: FC<any> = (): ReactElement => {
+    const [cookies, removeCookie] = useCookies(['token'])
+    const signOutHandler =  (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault()
+        removeCookie('token','')
+        window.location.reload()
     }
-}
 
-const signOutHandler =  (e: React.MouseEvent<HTMLButtonElement>) => { 
-    e.preventDefault()
-}
-
-const SignOut: FC<SignOutPropType> = (props): ReactElement => {
     return(
-        <button onClick={signOutHandler}  className="btn btn-primary btn-block btn-large" >Sign-out</button>
+        <div className="container-login100-form-btn m-t-17">
+            <button onClick={signOutHandler}  className="login100-form-btn">Sign Out</button>
+        </div>
     )
 }
 
-export default connect(null, mapDispatchToProps)(SignOut)
+export default SignOut

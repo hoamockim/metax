@@ -3,14 +3,22 @@ import { ActionCreator, AnyAction } from "redux"
 export const SIGNUP = "signup"
 export const SIGNUPDONE = "signup_done"
 export const SIGNIN = "signin"
-export const SIGNINFACE = "signinface"
-export const SIGNINGOOGLE = "signingoole"
 export const SIGNINED = "signined"
 export const SIGNOUT = "signout"
+export const SIGNFAIL ="signfail"
 export const AUTHVIA3RD = "authen_3rd"
 export const LOADING = "Loading"
+export const STATISTIC ="statistic"
 export const WAITING = "Waiting"
 export const ERROR ="error"
+export const SIGNOUTED = "signouted"
+export const PAGELOAD = "page-load"
+
+export const CHANGEPASSWORD ="change-password"
+export const CHANGEDPASSWORD = "password-changed"
+export const ACTIVEACOUNT = "active-account"
+export const ACTIVEDACCOUNT = "account-actived"
+
 export enum AuthenType {
     Email,
     Facebook,
@@ -38,22 +46,23 @@ export const SignInAction: ActionCreator<AnyAction> = (email: string, password: 
     }
 }
 
-export const SignInFacebookAction:  ActionCreator<AnyAction> = (code: string): AnyAction => {
+export const changePasswordAction: ActionCreator<AnyAction> = (oldPass: string, newpass: string, renewPass: string) => {
     return {
-        type: SIGNINFACE,
-        payload: {code}
+        type: CHANGEPASSWORD,
+        payload :  {oldPass, newpass, renewPass}
     }
 }
 
-export const SignInGoogleAction:  ActionCreator<AnyAction> = (): AnyAction => {
+export const ActiveAccounttAction: ActionCreator<AnyAction> = (userCode: string, activeCode: string): AnyAction => {
     return {
-        type: SIGNINGOOGLE,
+        type: ACTIVEACOUNT,
+        payload: {userCode, activeCode},
     }
 }
 
-export const SignOutAction: ActionCreator<AnyAction> = (): AnyAction => {
+export const ActionLoadPage: ActionCreator<AnyAction> = (init: boolean): AnyAction =>{
     return {
-        type: SIGNOUT,
-        payload: 1,
+        type: PAGELOAD,
+        payload: {init}
     }
 }

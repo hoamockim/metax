@@ -1,12 +1,16 @@
 import React, {FC, lazy, ReactElement, useEffect } from 'react'
 import {useNavigate, useLocation} from "react-router-dom"
 import jwtDecode from 'jwt-decode'
-import rdx from './redux/Store'
 import { useCookies } from 'react-cookie'
-
 
 const LoginPage = lazy(() => import('./pages/Login'))
 const DefaultPage = lazy(() => import('./pages/Default'))
+const background = require('./asserts/images/bg02.jpg')
+const styles = {
+    container: {
+        backgroundImage:` url(${background})`,
+    }
+}
 
 type JwtInfo = {
     userCode: string,
@@ -21,16 +25,43 @@ type AccountType = {
 }
 
 const AccountPage: FC<AccountType> = (props): ReactElement => {
+    console.log("env: ", process.env.REACT_APP_AUTH_URL)
+
     const [cookies, setCookie] = useCookies(['token'])
     let isAuthenticated: boolean = false
+    const location = useLocation()
+    const navigate = useNavigate()
+    const queryParams = new URLSearchParams(location.search)
+    let token: string = ""
+    let isThird: boolean = false
     if (cookies.token) {
-        isAuthenticated = true
+        token = cookies.token
+    }else if (queryParams.has('token') && queryParams.get('token')!=="") {
+        token = queryParams.get('token') || ""
+        isThird = token !==""
     }
-   
+
+    if (token !== "") {    
+        const decodedToken: JwtInfo = jwtDecode(token)
+        isAuthenticated = (decodedToken == null || decodedToken.exp  < Math.floor(Date.now()/1000)) ? false : true 
+        if (isAuthenticated) localStorage.setItem('jwt', token)
+    }
+
+    useEffect(()=>{
+        if (isAuthenticated && isThird) {
+            setCookie('token', token)
+            navigate('/',{replace: true})
+        }
+       
+    },[])
+
     return (
-      <>
-        {!isAuthenticated ? props.login: props.page}
-      </>
+        <div className="limiter">
+            {!isAuthenticated ? 
+                <div className="container-login100" style={styles.container}> {props.login} </div>: 
+                <div >{props.page}</div>
+            }
+        </div>
     )
 }
 
@@ -38,6 +69,14 @@ const signRoutes = [
     {
         path: '/sign-up',
         component: ()=> <LoginPage currentState={2}/> 
+    },
+    {
+        path: '/active',
+        component: ()=> <LoginPage currentState={3}/> 
+    },
+    {
+        path: '/password/change',
+        component: ()=> <LoginPage currentState={4}/> 
     },
 ]
 

@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import rdx from './redux/Store'
 import { PersistGate } from 'redux-persist/integration/react'
+import "./asserts/css/main.css"
+import "./asserts/css/util.css"
 
 ReactDOM.render(
   <Provider store={rdx.store}>
