@@ -10,10 +10,11 @@ export const AUTHVIA3RD = "authen_3rd"
 export const LOADING = "Loading"
 export const STATISTIC ="statistic"
 export const WAITING = "Waiting"
+export const WAITINGACTIVE= "waiting active"
 export const ERROR ="error"
 export const SIGNOUTED = "signouted"
 export const PAGELOAD = "page-load"
-
+export const ACTIVED ="actived"
 export const CHANGEPASSWORD ="change-password"
 export const CHANGEDPASSWORD = "password-changed"
 export const ACTIVEACOUNT = "active-account"
@@ -53,7 +54,7 @@ export const changePasswordAction: ActionCreator<AnyAction> = (oldPass: string, 
     }
 }
 
-export const ActiveAccounttAction: ActionCreator<AnyAction> = (userCode: string, activeCode: string): AnyAction => {
+export const ActiveAccountAction: ActionCreator<AnyAction> = (userCode: string, activeCode: string): AnyAction => {
     return {
         type: ACTIVEACOUNT,
         payload: {userCode, activeCode},

@@ -9,7 +9,6 @@ import IAccountService from "./IAccountService"
 export default class AccountService implements IAccountService {
   signIn(email: string, password: string) {
     const url =  `${process.env.REACT_APP_AUTH_URL}/signin`
-    console.log(url)
     return Restful.post(url, {
       requestId: StringUtil.generateRandom(20),
       email: email,
@@ -42,8 +41,9 @@ export default class AccountService implements IAccountService {
       requestId: StringUtil.generateRandom(20),
       userCode: userCode,
       activeCode: activeCode,
-    }) 
+    })
   }
+  
   statistic(init: boolean): AxiosObservable<any> {
     return Restful.get(`${process.env.REACT_APP_PROFILE_URL}/statistic?init=${init}`)
   }

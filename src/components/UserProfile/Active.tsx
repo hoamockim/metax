@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom"
 import { Dispatch } from "redux"
 import { createSelector, Selector } from "reselect"
 import { AccountState, RootState } from "../../redux/RootState"
-import { ActiveAccounttAction } from "../../redux/userprofile/UserAction"
+import { ActiveAccountAction, ACTIVED } from "../../redux/userprofile/UserAction"
 
 type ActiveAccountPropType = {
     state: string
@@ -17,10 +17,9 @@ const mapStateToProps =(state: RootState) => ({
     state: getAccountStatus(state)
 })
 
-
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        active: (usercode: string, activecode: string)=> dispatch(ActiveAccounttAction(usercode, activecode)),
+        active: (usercode: string, activecode: string)=> dispatch(ActiveAccountAction(usercode, activecode)),
     }
 }
 
@@ -37,8 +36,8 @@ const ActiveAccount: FC<ActiveAccountPropType> = (props): ReactElement=> {
         }
     }
     const renderElement = () => {
-        if (props.state=='ACTIVED') {
-          return  <div><h2>Actived success, please click</h2><a href="/">the link</a> to sign in system </div>
+        if (props.state==ACTIVED) {
+          return  <div><h2>Actived success, please click</h2><a href="http://localhost:8090/">the link</a> to sign in system </div>
         }
         return <div><h2>please click the button</h2><button onClick={activeHandler}  className="login100-form-btn">Active</button> to active your account </div>    
     }

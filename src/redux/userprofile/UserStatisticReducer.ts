@@ -15,7 +15,6 @@ const UserStatisticReducer: Reducer<StatisticState, AnyAction> = (state = initSt
         case PAGELOAD:
           return {...state}
         case STATISTIC:
-          console.log('loading page: ', action.payload.total)
           if (action.payload.personal) {
             return {...state, 
               signinCounter: action.payload.personal.signincounter, 

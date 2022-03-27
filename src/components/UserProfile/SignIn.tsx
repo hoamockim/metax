@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { connect } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { Dispatch } from "redux"
 import { createSelector, Selector } from "reselect"
 import { AccountState, RootState } from "../../redux/RootState"
@@ -33,7 +34,6 @@ const SignIn: FC<SignInPropType> = (props): ReactElement => {
         email: 'enter your email',
         password: 'enter your password',
     })
-
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setSignUpInfo((preState) => {
@@ -60,6 +60,7 @@ const SignIn: FC<SignInPropType> = (props): ReactElement => {
     useEffect(()=> {
         if (props.account.status==SIGNINED) {
             setCookie('token', props.account.accessToken)
+            window.location.reload()
         }
     })
 

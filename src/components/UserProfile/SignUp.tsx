@@ -4,6 +4,7 @@ import { Dispatch } from "redux"
 import { createSelector, Selector } from 'reselect'
 import { AccountState, RootState } from "../../redux/RootState"
 import { SignUpLocal } from "../../redux/userprofile/Index"
+import { WAITINGACTIVE } from "../../redux/userprofile/UserAction"
 import StringUtil from "../../utils/strings"
 
 type SignUpPropType = {
@@ -56,10 +57,18 @@ const SignUp: FC<SignUpPropType> = (props): ReactElement => {
         props.signUp(signUpInfo.email, signUpInfo.password)
         e.preventDefault()
     }
+    const waitingShow = () => {
+        const mailink = `mailto:${signUpInfo.email}`
+        if (props.state == WAITINGACTIVE){
+            return <p>Please go to <a href= {mailink}>email</a> to active the account</p>
+        }
+    }
     return(
         <div className="limiter">
+        
             <div className="container-login100" style={styles.container}>
             <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                {waitingShow()}
                 <form method="post" onSubmit={handleSubmit} className="login100-form validate-form flex-sb flex-w">
                     <div className="p-t-31 p-b-9">
                         <span className="txt1">

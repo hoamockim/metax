@@ -25,22 +25,21 @@ type AccountType = {
 }
 
 const AccountPage: FC<AccountType> = (props): ReactElement => {
-    console.log("env: ", process.env.REACT_APP_AUTH_URL)
-
     const [cookies, setCookie] = useCookies(['token'])
     let isAuthenticated: boolean = false
     const location = useLocation()
     const navigate = useNavigate()
     const queryParams = new URLSearchParams(location.search)
     let token: string = ""
-    let isThird: boolean = false
-    if (cookies.token) {
+   
+
+    if (cookies.token && cookies.token!=='') {
         token = cookies.token
+        console.log('token1: ', token)
     }else if (queryParams.has('token') && queryParams.get('token')!=="") {
         token = queryParams.get('token') || ""
-        isThird = token !==""
     }
-
+    
     if (token !== "") {    
         const decodedToken: JwtInfo = jwtDecode(token)
         isAuthenticated = (decodedToken == null || decodedToken.exp  < Math.floor(Date.now()/1000)) ? false : true 
@@ -48,11 +47,10 @@ const AccountPage: FC<AccountType> = (props): ReactElement => {
     }
 
     useEffect(()=>{
-        if (isAuthenticated && isThird) {
+        if (isAuthenticated) {
             setCookie('token', token)
             navigate('/',{replace: true})
         }
-       
     },[])
 
     return (

@@ -15,20 +15,6 @@ export type ResponseData = {
   data: any
 }
 
-function defaultResponse(): ResponseData {
-  return {
-    code: 400,
-    data: {}
-  }
-}
-
-function responseError(code: number, error: string): ResponseData {
-  return {
-    code: code,
-    data: error
-  }
-}
- 
 const apiHeaders = ( contentType: string ): AxiosRequestHeaders => {
   const headers =  {
     'Access-Control-Allow-Origin': '*',

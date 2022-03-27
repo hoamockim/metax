@@ -12,7 +12,7 @@ const Footer = (): ReactElement => {
      <div style={styles.container}>
          <hr/>
         <footer className="footer-metax" >
-            <p>This is a metax's test implemented by <a href="mailto:hoamockim@gmail.com">Quy Kim</a></p>
+            <p>This is a metax's test implemented by <a href="https://github.com/hoamockim">Quy Kim</a></p>
         </footer>
      </div>
     )
