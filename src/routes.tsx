@@ -35,7 +35,6 @@ const AccountPage: FC<AccountType> = (props): ReactElement => {
 
     if (cookies.token && cookies.token!=='') {
         token = cookies.token
-        console.log('token1: ', token)
     }else if (queryParams.has('token') && queryParams.get('token')!=="") {
         token = queryParams.get('token') || ""
     }

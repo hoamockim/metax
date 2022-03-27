@@ -45,7 +45,10 @@ const changePassword: UserEpic = action$ => action$.pipe(
         accountService.changePassword(action.payload.oldPass, action.payload.newpass, action.payload.renewPass).pipe(
             map(value => {
                 const response = value.data as ResponseData
-                return {type: ac.CHANGEDPASSWORD, payload: response.data}
+                if (response.data.message=='Your password is changed sucessfully'){
+                return {type: ac.CHANGEDPASSWORD}
+                }
+                return {type: ac.CHANGEDPASSWORDFAIL}
             })
 )))
 

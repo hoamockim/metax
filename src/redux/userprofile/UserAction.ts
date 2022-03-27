@@ -17,6 +17,7 @@ export const PAGELOAD = "page-load"
 export const ACTIVED ="actived"
 export const CHANGEPASSWORD ="change-password"
 export const CHANGEDPASSWORD = "password-changed"
+export const CHANGEDPASSWORDFAIL = "password-changed-not-successful"
 export const ACTIVEACOUNT = "active-account"
 export const ACTIVEDACCOUNT = "account-actived"
 

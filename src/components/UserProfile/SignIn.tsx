@@ -1,3 +1,4 @@
+import { red } from "@material-ui/core/colors"
 import { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { connect } from "react-redux"
@@ -27,10 +28,17 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
+const styles = {
+    error: {
+       color: "red",
+    }
+}
+
 const SignIn: FC<SignInPropType> = (props): ReactElement => {
     const fb = `${process.env.REACT_APP_FACEBOOK_AUTH}&redirect_uri=${process.env.REACT_APP_AUTH_URL}/facebook/redirect&scope=email&client_id=${process.env.REACT_APP_FACEBOOKID}`
     const google = `${process.env.REACT_APP_GOOGLE_AUTH}&redirect_uri=${process.env.REACT_APP_AUTH_URL}/google/redirect&scope=email profile&client_id=${process.env.REACT_APP_GOOGLE_ID}`
     const [siginInfo, setSignUpInfo] = useState({
+        valid: true,
         email: 'enter your email',
         password: 'enter your password',
     })
@@ -51,7 +59,10 @@ const SignIn: FC<SignInPropType> = (props): ReactElement => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         if (!StringUtil.isValidEmail(siginInfo.email) || !StringUtil.isValidPassWord(siginInfo.password)) {
-            //TODO: show error
+            setSignUpInfo((preState) => {
+                return {...preState, valid: false}
+            })
+           return
         }
         props.signIn(siginInfo.email, siginInfo.password)
     }
@@ -63,9 +74,14 @@ const SignIn: FC<SignInPropType> = (props): ReactElement => {
             window.location.reload()
         }
     })
-
+    const showError = ()=>{
+        if (!siginInfo.valid){
+            return <p style={styles.error}>Information is invallid</p>
+        }
+    }
     return(
         <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+             {showError()}
             <form method="post" onSubmit={handleSubmit} className="login100-form validate-form flex-sb flex-w">
                 <a href={fb} className="btn-face m-b-20">
                     <i className="fa fa-facebook-official"></i>

@@ -3,13 +3,16 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { createSelector, Selector } from "reselect"
 import { AccountState, RootState } from "../../redux/RootState"
-import { changePasswordAction } from "../../redux/userprofile/UserAction"
+import { CHANGEDPASSWORD, CHANGEDPASSWORDFAIL, changePasswordAction } from "../../redux/userprofile/UserAction"
 
 const background = require('../../asserts/images/bg02.jpg')
 const styles = {
     container: {
         backgroundImage:` url(${background})`,
-    }
+    },
+    error: {
+        color: "red",
+     }
 }
 type ChangePasswordType = {
    status: string
@@ -58,12 +61,14 @@ const ResetPassword: FC<ChangePasswordType> = (props): ReactElement => {
         e.preventDefault()
         props.changePassword(info.oldpass, info.newpass, info.renewpass)
     }
-
+ 
     const renderElement = () => {
-        if (props.status=='SUCCESS') {
-            return <div><h2>Change password success, please click</h2><a href="/">the link</a> to back the system </div>
+        if (props.status== CHANGEDPASSWORD) {
+            return <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33"><h2>Change password success, please click</h2><a href="http://localhost:8090">the link</a> to back the system </div>
         }else {
-        return <form method="post" onSubmit={handleSubmit} className="login100-form validate-form flex-sb flex-w">
+        return <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33"> 
+        <div> {props.status == CHANGEDPASSWORDFAIL ? <p style={styles.error}>change password is not successful</p>:<></>}</div>
+            <form method="post" onSubmit={handleSubmit} className="login100-form validate-form flex-sb flex-w">
                 <div className="p-t-31 p-b-9">
                     <span className="txt1">
                         Current password
@@ -101,16 +106,16 @@ const ResetPassword: FC<ChangePasswordType> = (props): ReactElement => {
                     <input type="submit" className="login100-form-btn" value="Change password   "/>
                 </div>
             </form>
+            </div>
         }
     }
     return(
         <div className="limiter">
         <div className="container-login100" style={styles.container}>
-        <div className="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
         {
             renderElement()
         }
-       </div></div></div>
+       </div></div>
     )
 }
 

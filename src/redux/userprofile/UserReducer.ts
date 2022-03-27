@@ -1,6 +1,6 @@
 import { AnyAction, Reducer } from "redux"
 import { AccountState } from "../RootState"
-import { ACTIVEACOUNT, ACTIVED, ACTIVEDACCOUNT, LOADING, SIGNFAIL, SIGNIN, SIGNINED, SIGNUP, SIGNUPDONE, WAITING } from "./UserAction"
+import { ACTIVEACOUNT, ACTIVED, ACTIVEDACCOUNT, CHANGEDPASSWORD, CHANGEDPASSWORDFAIL, LOADING, SIGNFAIL, SIGNIN, SIGNINED, SIGNUP, SIGNUPDONE, WAITING } from "./UserAction"
 
 const initialState: AccountState = {
     status: '',
@@ -24,6 +24,10 @@ const UserReducer: Reducer<AccountState, AnyAction> = (state = initialState, act
             return {...state, status: WAITING}
         case ACTIVEDACCOUNT:
             return {...state, status: ACTIVED}
+        case CHANGEDPASSWORD:
+            return {...state, status: CHANGEDPASSWORD}
+        case CHANGEDPASSWORDFAIL:
+            return {...state, status: CHANGEDPASSWORDFAIL}
         default:
             return {...state}
     }
